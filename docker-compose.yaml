@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:8
+    container_name: mysql-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=orders
+    ports:
+      - "3306:3306"
+    restart: always
+
+
+  internshipservice:
+    image: release
+    container_name: release-app
+    ports:
+      - "8085:8085"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - "db"

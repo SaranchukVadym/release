@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: 23.09.2021_order_items_table
+      author: Saranchuk Vadym
+      preConditions:
+        - onError: MARK_RAN
+          not:
+            - tableExists:
+                tableName: ORDER_ITEMS
+      changes:
+        - createTable:
+            tableName: ORDER_ITEMS
+            columns:
+              - column:
+                  name: ORDER_ID
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PRODUCT_ID
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: QUANTITY
+                  type: INT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            constraintName: PK_ORDER_PRODUCT
+            columnNames: ORDER_ID, PRODUCT_ID
+            tableName: ORDER_ITEMS
+        - addForeignKeyConstraint:
+            baseTableName: ORDER_ITEMS
+            baseColumnNames: ORDER_ID
+            constraintName: FK_ORDER_ITEMS_ORDERS
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedTableName: ORDERS
+            referencedColumnNames: ID
+        - addForeignKeyConstraint:
+            baseTableName: ORDER_ITEMS
+            baseColumnNames: PRODUCT_ID
+            constraintName: FK_PRODUCTS_ORDER_ITEMS
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedTableName: PRODUCTS
+            referencedColumnNames: ID

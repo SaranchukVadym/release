@@ -1,0 +1,7 @@
+databaseChangeLog:
+    - include:
+        file: db/changelog/changes/23.09.2021_orders_table.yaml
+    - include:
+        file: db/changelog/changes/23.09.2021_products_table.yaml
+    - include:
+        file: db/changelog/changes/23.09.2021_order_items_table.yaml

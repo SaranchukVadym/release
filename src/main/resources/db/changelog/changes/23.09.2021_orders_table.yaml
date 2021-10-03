@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 23.09.2021_orders_table
+      author: Saranchuk Vadym
+      preConditions:
+        - onError: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: ORDERS
+      changes:
+        - createTable:
+            tableName: ORDERS
+            columns:
+              - column:
+                  name: ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: USER_ID
+                  type: INT
+              - column:
+                  name: STATUS
+                  type: VARCHAR(50)
+              - column:
+                  name: CREATED_AT
+                  type: VARCHAR(50)
+        - sqlFile:
+            splitStatements: false
+            stripComments: false
+            path: db/changelog/changes/sql/autoincrement.sql
+        - sqlFile:
+            splitStatements: false
+            stripComments: false
+            path: db/changelog/changes/sql/trigger.sql
